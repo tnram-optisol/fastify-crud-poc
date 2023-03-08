@@ -1,0 +1,33 @@
+### ADD TASK
+
+POST http://localhost:8080/task/add HTTP/1.1
+Content-Type: application/json
+
+{
+  "task":"New Task 3 ",
+  "content":"Some test task 3",
+  "completed":false
+}
+
+### GET ALL TASK
+
+GET  http://localhost:8080/task/all HTTP/1.1
+
+
+### GET TASK BY ID
+
+GET  http://localhost:8080/task/62ff3c94bc2b025879965c20 HTTP/1.1
+
+### UPDATE TASK_ID
+
+PATCH    http://localhost:8080/task/update/62ff3c94bc2b025879965c20 HTTP/1.1
+Content-Type: application/json
+
+{
+  "completed":true
+}
+
+### DELETE TASK
+
+DELETE    http://localhost:8080/task/remove/62ff59a9afe709cdad9fdd6d HTTP/1.1
+
