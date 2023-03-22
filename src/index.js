@@ -1,7 +1,7 @@
 const fastify = require("fastify")({ logger: true });
 const mongoose = require("mongoose");
 require("dotenv").config();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -23,7 +23,7 @@ fastify.get("/", (req, reply) => {
 
 const startServer = async () => {
   try {
-    fastify.listen({ port: PORT });
+    fastify.listen({port:PORT});
   } catch (error) {
     fastify.log.error(error);
     process.exit(1);

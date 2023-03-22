@@ -4,6 +4,7 @@ const {
   findTaskById,
   updateTaskById,
   deleteTask,
+  getCompletedTasks,
 } = require("../services/taskService");
 
 async function addTask(req, reply) {
@@ -17,6 +18,9 @@ async function addTask(req, reply) {
 
 async function getAllTasks(req, reply) {
   try {
+    if (req.query.task) {
+      return await findAllTask(req.query.task);
+    }
     const res = await findAllTask();
     reply.send(res);
   } catch (error) {
@@ -53,4 +57,20 @@ async function removeTask(req, reply) {
     console.log(error);
   }
 }
-module.exports = { addTask, getAllTasks, getTaskById, updateTask, removeTask };
+
+async function getCompletedTask(req, reply) {
+  try {
+    const res = await getCompletedTasks();
+    reply.send(res);
+  } catch (error) {
+    console.log(error);
+  }
+}
+module.exports = {
+  addTask,
+  getAllTasks,
+  getTaskById,
+  updateTask,
+  removeTask,
+  getCompletedTask,
+};
