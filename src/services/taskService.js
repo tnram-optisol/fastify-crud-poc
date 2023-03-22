@@ -1,37 +1,28 @@
-const Task = require("../models/TaskModel");
-const mongoose = require("mongoose");
+const taskDao = require("../daos/taskDao");
 
 async function saveTask(task) {
-  const res = await Task.create(task);
-  return res;
+  return await taskDao.saveTask(task);
 }
-async function findAllTask() {
-  const res = await Task.find();
-  return res;
+async function findAllTask(task) {
+  if (task) {
+    return await taskDao.searchTasks(task);
+  }
+  return await taskDao.getAllTask();
 }
 async function findTaskById(id) {
-  const res = await Task.findById(id);
-  if (res) {
-    return res;
-  } else {
-    return "No Task";
-  }
+  return await taskDao.getTaskById(id);
 }
 
 async function updateTaskById(_id, task) {
-  const taskData = await Task.findByIdAndUpdate(_id, {
-    completed: task.completed,
-  });
-  return taskData;
+  return taskDao.updateTask(_id, task);
 }
 
 async function deleteTask(_id) {
-  const res = await Task.findByIdAndDelete(_id);
-  if (res) {
-    return res;
-  } else {
-    return "No Task Found";
-  }
+  return taskDao.removeTask(_id);
+}
+
+async function getCompletedTasks() {
+  return await taskDao.getCompletedTasks();
 }
 module.exports = {
   saveTask,
@@ -39,4 +30,5 @@ module.exports = {
   findTaskById,
   updateTaskById,
   deleteTask,
+  getCompletedTasks,
 };
